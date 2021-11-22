@@ -1,0 +1,113 @@
+body {
+    padding-top: 75px;
+}
+
+#results {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid;
+}
+
+#player1 {
+    flex-direction: row-reverse;
+    background-color: #6dadf1;
+}
+
+#player2 {
+    flex-direction: row;
+    background-color: #6dadf1;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: #1E90FF;
+    padding: 15px;
+}
+
+.flex-container > div {
+    width: 120px;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+    border-radius: 15px;
+}
+
+.enabled {
+    cursor: pointer;
+    background-color: #f1f1f1;;
+}
+
+
+.enabled1 {
+    cursor: pointer;
+    background-color: grey;
+}
+
+
+
+.disabled {
+    background-color: #6a6767;;
+}
+
+#mancala2 label, #mancala1  label {
+    font-size: 20px;
+    font-weight: bold;
+    width:100%;
+}
+
+ #mancala1 {
+    background-color: violet;
+}
+#mancala2{
+    background-color:pink;
+}
+
+#winner {
+    font-size: 25px;
+    display: none;
+}
+
+#start-game {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 25px;
+    background-color: rgb(34, 37, 34);
+}
+
+#Quit-game
+{
+    width: 50%;
+    margin-top: 20px;
+    font-size: 25px;
+    background-color:red; 
+}
+
+.btn-group button {
+    background-color: #04AA6D; /* Green background */
+    border: 1px solid green; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+  }
+  
+  /* Clear floats (clearfix hack) */
+  .btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+  
+  /* Add a background color on hover */
+  .btn-group button:hover {
+    background-color: #3e8e41;
+  }
+  
+  
+  

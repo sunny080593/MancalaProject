@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Mancala Game Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/HomePage.css"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Mancala Game</a>
+</nav>
+<main role="main" class="container">
+    <div id="turninfo"><b>Player 2move <------</b><span style="color: blue" th:text="${player2}"></span></div>
+
+    <div id="winner"><b>Winner</b> <span></span></div>
+    <div id="main-board">
+        <div class="flex-container" id="player1">
+            <div class="treasuare">&nbsp;</div>
+            <div class="pit enabled1" id="p7" >  
+            <form   th:action="@{/move}"  method="post" >
+               <button     th:disabled="${disablep2}" style="color: red" type="submit" th:name="pit" value="1"   th:text="${board[5]}"></button>
+            </form>
+            </div>  
+            
+            <div class="pit enabled1" id="p8" >
+            <form th:action="@{/move}"  method="post">
+               <button  th:disabled="${disablep2}"  style="color: red" type="submit" th:name="pit"  value="2"   th:text="${board[4]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1" id="p9" >
+             <form th:action="@{/move}"  method="post">
+               <button th:disabled="${disablep2}"  style="color: red" type="submit" th:name="pit"  value="3"  th:text="${board[3]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1" id="p10" >
+             <form th:action="@{/move}"  method="post">
+               <button  th:disabled="${disablep2}" style="color: red" type="submit" th:name="pit"  value="4"  th:text="${board[2]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1" id="p11">
+            <form th:action="@{/move}"  method="post">
+               <button  th:disabled="${disablep2}" style="color: red" type="submit" th:name="pit" value="5"  th:text="${board[1]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1"  id="p12"  >
+             <form th:action="@{/move}"  method="post">
+               <button  th:disabled="${disablep2}" style="color: red" type="submit" th:name="pit" value="6" th:text="${board[0]}"></button>
+            </form>
+            </div>
+            <div id="mancala1"  th:text="${board[7]}"><label>p2</label></div>
+        </div>
+        <div class="flex-container" id="player2">
+            <div class="treasuare">&nbsp;</div>
+            <div class="pit enabled1" id="p1">
+            <form th:action="@{/move}"  method="post">
+               <button th:disabled="${disablep1}"  style="color: red" type="submit" th:name="pit" value="1"   th:text="${board[8]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1" id="p2" >
+             <form th:action="@{/move}"  method="post">
+               <button  th:disabled="${disablep1}" style="color: red" type="submit" th:name="pit" value="2"  th:text="${board[9]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1" id="p3" >
+             <form th:action="@{/move}"  method="post">
+               <button   th:disabled="${disablep1}" style="color: red" type="submit" th:name="pit" value="3" th:text="${board[10]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1" id="p4" >
+             <form th:action="@{/move}"  method="post">
+               <button   th:disabled="${disablep1}" style="color: red" type="submit" th:name="pit" value="4" th:text="${board[11]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1" id="p5" >
+            <form th:action="@{/move}"  method="post">
+               <button  th:disabled="${disablep1}"  style="color: red" type="submit" th:name="pit" value="5" th:text="${board[12]}"></button>
+            </form>
+            </div>
+            <div class="pit enabled1" id="p6"  >
+             <form th:action="@{/move}"  method="post">
+               <button  th:disabled="${disablep1}" style="color: red" type="submit" th:name="pit" value="6" th:text="${board[13]}"></button>
+            </form>
+            </div>
+            <div id="mancala2"  th:text="${board[6]}"><label>p1</label></div>
+            
+        </div>
+    </div>
+    <div id="turninfo"><b>Player 1move---></b> <span style="color: green" th:text="${player1}"></span></div>
+
+        
+    <div class="btn-group" style="width:100%">
+        <button style="width:33.3%" type="button" class="btn btn-primary" id="start-game" >
+            <a href="/start-board">
+                Start Game</a>
+        
+        </button>
+        <button style="width:33.3%"  type="button" class="btn btn-primary" id="start-game" >
+            <a href="/quitGame">
+            Quit Game</a>
+        </button>
+        <button   style="width:33.3%" type="button" class="btn btn-primary" id="start-game">
+            <a href="/gameRule">
+            View Rule</a>
+        </button>
+      </div>
+
+<div>
+
+ 
+</main>
+
+
+<div>
+ 
+  <span style="color: green;font-size: 20px;" th:text="${score1}" ></span><br>
+  <span style="color: blue;font-size: 20px;"  th:text="${score2}" ></span>
+
+ 
+ </div>
+ 
+ <div style ="background-color: black;">
+<span  style="color: red; font-size: 50px;font-style: bold; " th:text ="${message}" ></span>
+</div>
+
+ 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</body>
+</html>
