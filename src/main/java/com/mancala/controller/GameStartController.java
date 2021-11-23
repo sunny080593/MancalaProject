@@ -13,36 +13,68 @@ import com.mancala.model.Board;
 
 @Controller
 public class GameStartController {
+public enum PageReference {
+    BOARD("mancalaBoard"), RULE("gameRule"), HOME("homePage");
 
-	Board aMancalaBoard = new Board("rahul", "tina");
+    private final String reference;
+
+    PageReference(String reference) {
+        this.reference = reference;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+}
+	Board board = null;
+	private static final String playerOneName = "Rahul";
+	private static final String playerTwoName = "Tina";
+	private Map<String, Object> boardState = null;
 
 	@GetMapping("/start-board")
-	public String startPage(Model m) {
+	public String startPage(Model model) {
+		board = new Board(playerOneName, playerTwoName);
 
-		m.addAttribute("disablep2", true);
+		boardState = new HashMap<>();
 
-		m.addAttribute("board", aMancalaBoard.getBoardState());
-		return "mancalaBoard";
+		boardState.put("board", board.getBoardState());
+		boardState.put("disablep2", board.isPlayer1Turn());
+
+		populateAttributes(boardState, model);
+
+		return PageReference.BOARD.getReference();
 	}
 
-	
 	@PostMapping("/move")
-	public String move(@RequestParam(value = "pit") String id, Model m) {
+	public String move(@RequestParam(value = "pit") String id, Model model) {
 
-		aMancalaBoard.makeMove(Integer.parseInt(id));
+		board.makeMove(Integer.parseInt(id));
 
-		m.addAttribute("disablep1", aMancalaBoard.isPlayer1Turn() ? false : true);
-		m.addAttribute("disablep2", aMancalaBoard.isPlayer1Turn() ? true : false);
+		boardState.put("disablep1", board.isPlayer1Turn() ? false : true);
+		boardState.put("disablep2", board.isPlayer1Turn() ? true : false);
 
-		m.addAttribute("board", aMancalaBoard.getBoardState());
-		m.addAttribute("message", aMancalaBoard.getMessage());
+		boardState.put("board", board.getBoardState());
+		boardState.put("message", board.getMessage());
 
-		if (aMancalaBoard.getMessage() == "Player 1 wins!" || aMancalaBoard.getMessage() == "Player 2 wins!"
-				|| aMancalaBoard.getMessage() == "A tie!") {
-			m.addAttribute("score1","Player 1 Score is  :" + aMancalaBoard.getScore("rahul"));
-			m.addAttribute("score2", "Player 2 Score is :"+ aMancalaBoard.getScore("tina"));
-
+		if (isGameEnded()) {
+			boardState.put("score1", "Player 1 Score is  :" + board.getScore(playerOneName));
+			boardState.put("score2", "Player 2 Score is :" + board.getScore(playerTwoName));
 		}
+		populateAttributes(boardState, model);
 
-		return "mancalaBoard";
-	}}
+		return PageReference.BOARD.getReference();
+	}
+
+	private void populateAttributes(Map<String, ?> gameInfo, Model model) {
+		gameInfo.entrySet().stream().forEach(entrySet -> model.addAttribute(entrySet.getKey(), entrySet.getValue()));
+	}
+
+	private boolean isGameEnded() {
+		if (board.getMessage() == "Player 1 wins!" || board.getMessage() == "Player 2 wins!"
+				|| board.getMessage() == "A tie!") {
+			return true;
+		}
+		return false;
+	}		
+}
