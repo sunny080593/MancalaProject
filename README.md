@@ -1,2 +1,2 @@
 # MancalaProject
-![](Untitled.png)
+
